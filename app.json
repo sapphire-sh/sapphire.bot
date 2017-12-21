@@ -1,0 +1,9 @@
+{
+	"name": "sapphire.bot",
+	"description": "twitter bot boilerplate",
+	"repository" : "https://github.com/sapphiredev/sapphire.bot",
+	"keywords": [
+		"twitter",
+		"bot"
+	]
+}
