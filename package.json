@@ -1,0 +1,27 @@
+{
+  "name": "sapphire.bot",
+  "version": "1.0.0",
+  "description": "twitter bot boilerplate",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapphiredev/sapphire.bot.git"
+  },
+  "keywords": [
+    "twitter",
+    "bot",
+    "heroku"
+  ],
+  "author": "sapphire",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sapphiredev/sapphire.bot/issues"
+  },
+  "homepage": "https://github.com/sapphiredev/sapphire.bot#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
