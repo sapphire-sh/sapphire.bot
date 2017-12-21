@@ -4,7 +4,8 @@
   "description": "twitter bot boilerplate",
   "main": "./src/app.js",
   "scripts": {
-    "start": "node ./src/app.js"
+    "dev": "cross-env `babel-node ./scripts/env.js` NODE_ENV=dev babel-node ./src/app.js",
+    "start": "cross-env NODE_ENV=prod node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,38 @@
   },
   "homepage": "https://github.com/sapphiredev/sapphire.bot#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "oauth": "^0.9.15",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
+    "redis": "^2.8.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "request": "^2.83.0",
+    "semantic-ui-css": "^2.2.12"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "^22.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "bluebird": "^3.5.1",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.1.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
+    "eslint-plugin-react": "^7.5.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "jest": "^22.0.3",
+    "style-loader": "^0.19.1",
+    "supertest": "^3.0.0",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
   }
 }

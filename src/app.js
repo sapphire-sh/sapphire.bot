@@ -1,10 +1,15 @@
-const express = require('express');
-const app = express();
+import Server from './libs/server';
 
-app.get('/', (req, res) => {
-	res.json('hello');
-});
+class App {
+	constructor() {
+		let self = this;
 
-app.listen(process.env.PORT, () => {
-	console.log(`port: ${process.env.PORT}`);
-});
+		const server = new Server();
+
+		self.server = server;
+	}
+}
+
+const app = new App();
+
+export default App;

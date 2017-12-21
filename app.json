@@ -5,5 +5,8 @@
 	"keywords": [
 		"twitter",
 		"bot"
+	],
+	"addons": [
+		"heroku-redis:hobby-dev"
 	]
 }
