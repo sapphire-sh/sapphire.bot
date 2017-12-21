@@ -5,4 +5,6 @@ app.get('/', (req, res) => {
 	res.json('hello');
 });
 
-app.listen(8011);
+app.listen(process.env.PORT, () => {
+	console.log(`port: ${process.env.PORT}`);
+});
