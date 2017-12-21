@@ -13,7 +13,11 @@ redis.on('error', (err) => {
 });
 
 class Database {
-	static _set(key, value, expire) {
+	static close() {
+		redis.quit();
+	}
+
+	static set(key, value, expire) {
 		let self = this;
 
 		let args = [
@@ -39,7 +43,7 @@ class Database {
 		});
 	}
 
-	static _get(key) {
+	static get(key) {
 		let self = this;
 
 		return new Promise((resolve, reject) => {
@@ -54,7 +58,7 @@ class Database {
 		});
 	}
 
-	static _hset(key, value, expire) {
+	static hset(key, value, expire) {
 		let self = this;
 
 		let args = [
@@ -80,7 +84,7 @@ class Database {
 		});
 	}
 
-	static _hget(key) {
+	static hget(key) {
 		let self = this;
 
 		return new Promise((resolve, reject) => {
@@ -99,14 +103,14 @@ class Database {
 		let self = this;
 
 		return deflate(token).then((data) => {
-			return self._set('oauth', data.toString('base64'));
+			return self.set('oauth', data.toString('base64'));
 		});
 	}
 
 	static getOAuthToken() {
 		let self = this;
 
-		return self._get('oauth').then((data) => {
+		return self.get('oauth').then((data) => {
 			return inflate(new Buffer(data, 'base64'));
 		});
 	}

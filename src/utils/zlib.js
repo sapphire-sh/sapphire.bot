@@ -8,6 +8,7 @@ export function deflate(data) {
 
 	return new Promise((resolve, reject) => {
 		zlib.deflate(buffer, (err, result) => {
+			/* istanbul ignore if */
 			if(err) {
 				reject(err);
 			}
