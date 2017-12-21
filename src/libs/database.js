@@ -17,13 +17,14 @@ class Database {
 		redis.quit();
 	}
 
-	static set(key, value, expire) {
+	static _set(type, key, value, expire) {
 		let self = this;
 
 		let args = [
 			key,
 			value,
 		];
+
 		if(expire !== undefined) {
 			args.concat([
 				'EX',
@@ -31,8 +32,20 @@ class Database {
 			]);
 		}
 
+		let fn;
+		switch(type) {
+		case 'set':
+			fn = redis.set;
+			break;
+		case 'hset':
+			fn = redis.hset;
+			break;
+		default:
+			return Promise.reject('invalid query type');
+		}
+
 		return new Promise((resolve, reject) => {
-			redis.set(...args, (err, reply) => {
+			fn(...args, (err, reply) => {
 				if(err) {
 					reject(err);
 				}
@@ -43,8 +56,20 @@ class Database {
 		});
 	}
 
-	static get(key) {
+	static _get(type, key) {
 		let self = this;
+
+		let fn;
+		switch(type) {
+		case 'get':
+			fn = redis.get;
+			break;
+		case 'hget':
+			fn = redis.hget;
+			break;
+		default:
+			return Promise.reject('invalid query type');
+		}
 
 		return new Promise((resolve, reject) => {
 			redis.get(key, (err, reply) => {
@@ -58,45 +83,28 @@ class Database {
 		});
 	}
 
+	static set(key, value, expire) {
+		let self = this;
+
+		return self._set('set', key, value, expire);
+	}
+
 	static hset(key, value, expire) {
 		let self = this;
 
-		let args = [
-			key,
-			value,
-		];
-		if(expire !== undefined) {
-			args.concat([
-				'EX',
-				expire,
-			]);
-		}
+		return self._set('hset', key, value, expire);
+	}
 
-		return new Promise((resolve, reject) => {
-			redis.hset(...args, (err, reply) => {
-				if(err) {
-					reject(err);
-				}
-				else {
-					resolve(reply);
-				}
-			});
-		});
+	static get(key) {
+		let self = this;
+
+		return self._get('get', key);
 	}
 
 	static hget(key) {
 		let self = this;
 
-		return new Promise((resolve, reject) => {
-			redis.hget(key, (err, reply) => {
-				if(err) {
-					reject(err);
-				}
-				else {
-					resolve(reply);
-				}
-			});
-		});
+		return self._get('hset', key);
 	}
 
 	static setOAuthToken(token) {

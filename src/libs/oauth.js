@@ -6,7 +6,7 @@ class OAuth {
 	static oauth_token;
 	static oauth_token_secret;
 
-	static getRequestToken() {
+	static initialize() {
 		let self = this;
 
 		const {
@@ -23,6 +23,10 @@ class OAuth {
 			null,
 			'HMAC-SHA1',
 		);
+	}
+
+	static getRequestToken() {
+		let self = this;
 
 		return new Promise((resolve, reject) => {
 			self.oauth.getOAuthRequestToken((err, oauth_token, oauth_token_secret) => {

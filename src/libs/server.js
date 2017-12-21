@@ -31,24 +31,13 @@ class Server {
 			app.use(path, router);
 		});
 
-		app.get('/', (req, res, next) => {
-			if(Twitter.isInitialized) {
-				res.redirect('/i');
-			}
-			else {
-				next();
-			}
-		});
-
 		app.get('*', (req, res) => {
 			res.send(HTML());
 		});
 
-		app.listen(process.env.PORT, () => {
+		self.server = app.listen(process.env.PORT, () => {
 			console.log(`port: ${process.env.PORT}`);
 		});
-
-		self.app = app;
 	}
 }
 

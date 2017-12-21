@@ -1,7 +1,7 @@
 import Database from './database';
 
 describe('./libs/database.js', () => {
-	it('test', (done) => {
+	test('test', (done) => {
 		done();
 	});
 

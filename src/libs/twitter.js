@@ -13,7 +13,7 @@ class Twitter {
 		self.isInitialized = true;
 	}
 
-	static get(url, params) {
+	static _request(type, url, params) {
 		let self = this;
 
 		if(self.isInitialized === false) {
@@ -24,8 +24,20 @@ class Twitter {
 			params = {};
 		}
 
+		let fn;
+		switch(type) {
+		case 'get':
+			fn = self.twit.get;
+			break;
+		case 'post':
+			fn = self.twit.post;
+			break;
+		default:
+			return Promise.reject('invalid request type');
+		}
+
 		return new Promise((resolve, reject) => {
-			self.twit.get(url, params, (err, res) => {
+			fn(url, params, (err, res) => {
 				if(err) {
 					reject(err);
 				}
@@ -36,27 +48,16 @@ class Twitter {
 		});
 	}
 
+	static get(url, params) {
+		let self = this;
+
+		return self._request('get', url, params);
+	}
+
 	static post(url, params) {
 		let self = this;
 
-		if(self.isInitialized === false) {
-			return Promise.reject('twit is not initialized');
-		}
-
-		if(params === undefined) {
-			params = {};
-		}
-
-		return new Promise((resolve, reject) => {
-			self.twit.post(url, params, (err, res) => {
-				if(err) {
-					reject(err);
-				}
-				else {
-					resolve(res);
-				}
-			});
-		});
+		return self._request('post', url, params);
 	}
 
 	static getCurrentUser() {
