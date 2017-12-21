@@ -4,8 +4,14 @@
   "description": "twitter bot boilerplate",
   "main": "./src/app.js",
   "scripts": {
+    "build": "babel-node ./build/build.js",
     "dev": "cross-env `babel-node ./scripts/env.js` NODE_ENV=dev babel-node ./src/app.js",
-    "start": "cross-env NODE_ENV=prod node ./src/app.js"
+	"prestart": "npm run build",
+	"start": "node ./dist/main.js",
+    "eslint": "eslint --ext .js,.jsx .",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -23,18 +29,23 @@
   },
   "homepage": "https://github.com/sapphiredev/sapphire.bot#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "express": "^4.16.2",
+    "history": "^4.7.2",
+    "morgan": "^1.9.0",
     "oauth": "^0.9.15",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redis": "^2.8.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
-    "semantic-ui-css": "^2.2.12"
+    "semantic-ui-css": "^2.2.12",
+    "twit": "^2.2.9"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -44,17 +55,20 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "bluebird": "^3.5.1",
     "coveralls": "^3.0.0",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
     "jest": "^22.0.3",
     "style-loader": "^0.19.1",
     "supertest": "^3.0.0",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^2.0.2",
+    "webpack-hot-middleware": "^2.21.0",
     "webpack-node-externals": "^1.6.0"
   }
 }
