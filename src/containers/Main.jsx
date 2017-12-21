@@ -3,14 +3,15 @@ import {
 	Link,
 } from 'react-router-dom';
 
+import CurrentUser from '../components/CurrentUser';
+
 class Main extends React.Component {
 	render() {
-		const d = new Date();
-		const date = d.toISOString().substr(0, 10);
-		const hour = d.getHours();
-
 		return (
-			<div>1234</div>
+			<div>
+				{/* <CurrentUser /> */}
+				1234
+			</div>
 		);
 	}
 }

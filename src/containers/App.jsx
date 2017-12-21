@@ -4,8 +4,8 @@ import {
 	Route,
 } from 'react-router-dom';
 
+import Entry from './Entry';
 import Main from './Main';
-
 import NotFound from './errors/NotFound';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -16,9 +16,9 @@ class App extends React.Component {
 		return (
 			<div className="ui container">
 				<Switch>
-					<Route exact path="/i" component={Main} />
-
-					<Route path="*" component={NotFound} />
+					<Route exact path="/" component={ Entry } />
+					<Route exact path="/i" component={ Main } />
+					<Route path="*" component={ NotFound } />
 				</Switch>
 			</div>
 		);

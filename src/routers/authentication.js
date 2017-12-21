@@ -5,16 +5,12 @@ import Database from '../libs/database';
 
 const router = Express.Router();
 
-let oauth_token;
-let oauth_token_secret;
-
 router.get('/', (req, res) => {
 	OAuth.getRequestToken()
 	.then((token) => {
-		oauth_token = token.oauth_token;
-		oauth_token_secret = token.oauth_token_secret;
+		req.session.oauth = token;
 
-		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${oauth_token}`);
+		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
 	})
 	.catch((err) => {
 		console.log(err);
@@ -22,10 +18,24 @@ router.get('/', (req, res) => {
 	});
 });
 
+function validateToken(session) {
+	if(session.oauth_token === undefined) {
+		return false;
+	}
+	if(session.oauth_token_secret === undefined) {
+		return false;
+	}
+	if(session.oauth_verifier === undefined) {
+		return false;
+	}
+	return true;
+}
+
 router.get('/callback', (req, res) => {
 	const oauth_verifier = req.query.oauth_verifier;
+	req.session.oauth_verifier = oauth_verifier;
 
-	if(oauth_token === undefined || oauth_token_secret === undefined || oauth_verifier === undefined) {
+	if(validateToken(req.session)) {
 		res.redirect('/');
 	}
 	else {
@@ -33,9 +43,7 @@ router.get('/callback', (req, res) => {
 			'oauth_verifier': oauth_verifier,
 		})
 		.then((token) => {
-			return Database.setOAuthToken(token);
-		})
-		.then(() => {
+			req.session.oauth = token;
 			res.redirect('/');
 		})
 		.catch((err) => {
