@@ -1,7 +1,6 @@
 import Twitter from '../libs/twitter';
 
 export function loginValidator(req, res, next) {
-	console.log(req.session);
 	if(req.session.login) {
 		next();
 	}

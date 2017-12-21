@@ -13,7 +13,6 @@ class Entry extends React.Component {
 
 		this.state = {
 			'password': '',
-			'login': false,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -32,9 +31,7 @@ class Entry extends React.Component {
 		})
 		.then((data) => {
 			if(data) {
-				this.setState({
-					'login': data,
-				});
+				window.location.href = '/auth';
 			}
 			else {
 				alert('wrong password');
@@ -45,12 +42,6 @@ class Entry extends React.Component {
 	}
 
 	render() {
-		if(this.state.login) {
-			return (
-				<Redirect to="/auth" />
-			);
-		}
-
 		return (
 			<form className="ui form" onSubmit={ this.handleSubmit }>
 				<div className="field">

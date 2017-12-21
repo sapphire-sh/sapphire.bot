@@ -11,6 +11,7 @@ export function fetchPost(url, body) {
 		'headers': {
 			'Content-Type': 'application/json',
 		},
+		'credentials': 'include',
 		'body': JSON.stringify(body),
 	})
 	.then((res) => {

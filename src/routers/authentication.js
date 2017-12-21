@@ -2,6 +2,7 @@ import Express from 'express';
 
 import OAuth from '../libs/oauth';
 import Database from '../libs/database';
+import Twitter from '../libs/twitter';
 
 const router = Express.Router();
 
@@ -43,8 +44,20 @@ router.get('/callback', (req, res) => {
 			'oauth_verifier': oauth_verifier,
 		})
 		.then((token) => {
-			req.session.oauth = token;
-			res.redirect('/');
+			const {
+				consumer_key,
+				consumer_secret,
+			} = process.env;
+
+			Twitter.initialize({
+				'consumer_key': consumer_key,
+				'consumer_secret': consumer_secret,
+				...token,
+			});
+
+			delete req.session.oauth;
+
+			res.redirect('/i');
 		})
 		.catch((err) => {
 			res.status(500).json(err);
