@@ -7,7 +7,6 @@
     "build": "webpack",
     "prestart": "npm run build",
     "start": "node ./dist/main.js",
-    "eslint": "eslint --ext .js,.jsx .",
     "test": "jest",
     "coverage": "jest --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
@@ -32,12 +31,29 @@
     "twit": "^2.2.11"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.1",
     "@types/puppeteer": "^1.6.0",
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.4",
     "ts-loader": "^4.5.0",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1",
     "webpack": "^4.17.0",
     "webpack-command": "^0.4.1",
     "webpack-node-externals": "^1.7.2"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)test.ts?(x)"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx",
+      "json"
+    ]
   }
 }
